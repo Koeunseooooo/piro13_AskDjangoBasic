@@ -3,6 +3,7 @@ from venv import logger
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Item
+from .models import ItemForm
 
 
 def archives_year(request, year):
@@ -29,3 +30,21 @@ def item_detail(request, pk):
     return render(request, 'shop/item_detail.html', {
         'item': item,
     })
+
+#
+# def item_new(request,item=None):
+#     if request.method == 'POST':
+#         form=ItemForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             item=form.save()
+#             return redirect(item)
+#     else:
+#         form=ItemForm()
+#
+#     return render(request, 'shop/item_form.html',{
+#         'error_list' : error_list,
+#         'initial':initial,
+#     })
+
+item_new = CreateView.as_view(model=Item,form_class=ItemForm)
+item_edit = UpdateView.as.view(model=Item,form_class=ItemForm)
